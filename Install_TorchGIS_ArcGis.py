@@ -54,7 +54,17 @@ class InstallOrUpdateTorchGIS:
     def execute(self, parameters, messages):
         install_torchgis(parameters, messages)
 
-"""Run the installation"""
+"""
+Run the installation
+
+Args:
+    parameters (list): Tool parameters forwarded by execute().
+    messages: ArcGIS Pro message interface used to report the project
+    path and download progress.
+
+Returns:
+    None.
+"""
 
 def install_torchgis(parameters, messages):
     project = arcpy.mp.ArcGISProject("CURRENT")
@@ -67,7 +77,16 @@ def install_torchgis(parameters, messages):
     data = read_release()
     messages.addMessage(f"Downloaded {len(data):,} bytes.")
 
-"""Download the release ZIP and return its bytes."""
+"""
+Download the release ZIP and return its bytes.
+
+Args:
+    None. The URL comes from DEFAULT_RELEASE_URL.
+
+Returns:
+    bytes: The downloaded archive contents.
+
+"""
 def read_release():
     with urlopen(DEFAULT_RELEASE_URL, timeout=60) as response:
         return response.read()
