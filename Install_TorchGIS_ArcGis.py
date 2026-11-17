@@ -63,3 +63,11 @@ def install_torchgis(parameters, messages):
         raise RuntimeError("Open a writable ArcGIS Pro project before installing.")
 
     messages.addMessage(f"Current project is {project.filePath}")
+    messages.addMessage("Downloading the TorchGIS release...")
+    data = read_release()
+    messages.addMessage(f"Downloaded {len(data):,} bytes.")
+
+"""Download the release ZIP and return its bytes."""
+def read_release():
+    with urlopen(DEFAULT_RELEASE_URL, timeout=60) as response:
+        return response.read()
